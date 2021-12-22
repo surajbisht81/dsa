@@ -1,0 +1,50 @@
+Let size of input string be n.
+1. Iterate through index ‘0’ to ‘n-1’.
+2. If we encounter a ‘1’, we iterate till the elements are ‘0’.
+3. After the stream of zeros ends, we check whether we encounter a ‘1’ or not.
+4. Keep on doing this till we reach the end of string.
+
+Below is the implementation of the above method.
+
+
+/* Code to count 1(0+)1 patterns in a string */
+#include <bits/stdc++.h> 
+using namespace std; 
+
+/* Function to count patterns */
+int patternCount(string str) 
+{ 
+	/* Variable to store the last character*/
+	char last = str[0]; 
+
+	int i = 1, counter = 0; 
+	while (i < str.size()) 
+	{ 
+		/* We found 0 and last character was '1', 
+		state change*/
+		if (str[i] == '0' && last == '1') 
+		{ 
+			while (str[i] == '0') 
+				i++; 
+
+			/* After the stream of 0's, we got a '1', 
+			counter incremented*/
+			if (str[i] == '1') 
+				counter++; 
+		} 
+
+		/* Last character stored */
+		last = str[i]; 
+		i++; 
+	} 
+
+	return counter; 
+} 
+
+/* Driver Code */
+int main() 
+{ 
+	string str = "1001ab010abc01001"; 
+	cout << patternCount(str) << endl; 
+	return 0; 
+} 

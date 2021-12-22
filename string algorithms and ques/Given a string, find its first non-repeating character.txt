@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define MAX_CHAR 256
+
+int first_index(string str, int n)
+{
+    pair<int, int> arr[MAX_CHAR];    // first->freq, second->position of the character
+    
+    for(int i=0; i<n; i++)
+    {
+        (arr[str[i]-'a'].first)++;
+        arr[str[i]-'a'].second = i;
+    }
+    
+    int res = INT_MAX;
+    
+    for(int i=0; i<MAX_CHAR; i++)
+    {
+        if(arr[i].first==1)
+         res = min(res, arr[i].second);
+    }
+    return res;
+}
+
+//O(n) space and time complaxity 
+int main() {
+    
+    int T;
+    cin>>T;
+    
+    while(T--)
+    {
+        int n;
+        cin>>n;
+        string str;
+        cin>>str;
+        int idx = first_index(str, n);
+        if(idx!=INT_MAX)
+          cout<<str[idx]<<endl;
+        else
+          cout<<"-1"<<endl;  
+    }
+    return 0;
+}

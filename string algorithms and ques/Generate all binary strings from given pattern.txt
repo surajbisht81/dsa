@@ -1,0 +1,31 @@
+Given a string containing of ‘0’, ‘1’ and ‘?’ wildcard characters, generate all binary strings that can be formed by replacing each wildcard character by ‘0’ or ‘1’.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void printStr(string str, int idx)
+{
+    if(idx==str.size())
+    {
+        cout<<str<<endl;
+        return;
+    }
+    
+    if(str[idx]=='?')
+    {
+        str[idx] = '1';
+        printStr(str, idx+1);
+        
+        str[idx] = '0';
+        printStr(str, idx+1);
+    }
+    else
+     printStr(str, idx+1);
+}
+
+int main() {
+    
+     string str = "1??0?101"; 
+     printStr(str, 0);
+     return 0;
+}

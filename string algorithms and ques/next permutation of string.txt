@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void next_permutation(string str)
+{
+    int n = str.length();
+    
+    int i;
+    for(i=n-2; i>=0; i--)
+    {
+        if(str[i]<str[i+1])
+         break;
+    }
+    if(i<0)
+     reverse(str.begin(), str.end());
+     
+    else
+    { 
+        int k;
+        for(k=n-1; k>i; k--)
+        {
+            if(str[k]> str[i])
+             break;
+        }
+        swap(str[i], str[k]);
+        reverse(str.begin()+i+1, str.end());
+    }
+    cout<<str;
+}
+
+int main() {
+    
+    string str = "13542";
+    next_permutation(str);
+    return 0;
+}

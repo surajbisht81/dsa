@@ -1,0 +1,31 @@
+/*Given a string, find all ways to break the given string in bracket form. Enclose each substring within a parenthesis.
+
+Examples:
+
+Input : abc
+Output: (a)(b)(c)
+        (a)(bc)
+        (ab)(c)
+        (abc)*/
+
+#include <iostream>
+using namespace std;
+
+void find_combinations(string str, int idx, string out)
+{
+    if(idx==str.length())
+      cout<<out<<endl;
+      
+    for(int i=idx; i<str.length(); i++)
+    {
+        find_combinations(str, i+1, out + "(" +  str.substr(idx, i+1-idx) + ")");      // we well put every character combination in brackets at each level of tree
+    }
+}
+
+int main() {
+    
+    string str = "abc";
+    
+    find_combinations(str, 0, "");   
+    return 0;
+}

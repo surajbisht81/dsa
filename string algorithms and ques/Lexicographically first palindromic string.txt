@@ -1,0 +1,88 @@
+/*Rearrange the characters of the given string to form a lexicographically first palindromic string. If no such string exists display message “no palindromic string”.*/
+
+
+#include <bits/stdc++.h>
+using namespace std;
+#define MAX_CHAR 26
+
+void find_freq(int freq[], string str, int len)
+{
+    for(int i=0; i<len; i++)
+    {
+        freq[str[i]-'a']++;
+    }
+}
+
+bool can_make_palindrome(int freq[], int len)
+{
+    int count=0;
+    for(int i=0; i<MAX_CHAR; i++)
+    {
+        if(freq[i]%2!=0)
+        count++;
+    }
+    if(len%2==0)
+     {
+         if(count!=0)
+          return false;
+     }
+    else
+    {
+        if(count>1)
+         return false;
+    }
+    return true;
+}
+
+string find_mid(int freq[], int len)
+{
+    string mid_odd = "";
+    for(int i=0; i<MAX_CHAR; i++)
+    {
+        if(freq[i]%2!=0)
+         {
+             freq[i]--;
+             mid_odd = mid_odd + (char)(i+'a');
+         }
+    }
+    return mid_odd;
+}
+string first_palindromic_string(string str, int len)
+{
+    int freq[MAX_CHAR] = {0};
+    
+    find_freq(freq, str, len);
+    
+    if(!can_make_palindrome(freq, len))
+      {
+          cout<<"not possible\n";
+          return "-1";
+      }
+      
+    string mid_odd = find_mid(freq, len);
+    
+    string front_str="", rear_str="";
+    
+    for(int i=0; i<MAX_CHAR; i++)
+    {
+        string temp = "";
+        if(freq[i]!=0)
+        {
+            for(int j=1; j<=freq[i]/2; i++)
+            {
+                temp = (char)(i+'a');
+                front_str = front_str + temp;
+                rear_str = temp + rear_str;
+            }
+        }
+    }
+    return front_str+mid_odd+rear_str;
+}
+
+int main() {
+    
+    string str = "abbccddeezz";
+    
+    cout<<first_palindromic_string(str, str.length());
+    return 0;
+}

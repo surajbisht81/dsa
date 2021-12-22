@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void factorial(int fact[], int n)
+{
+    fact[0]=fact[1]=1;
+    for(int i=2; i<=n; i++)
+     fact[i] = fact[i-1]*(i);
+}
+
+int find_rank(string str, int n)
+{
+    string temp = str;
+    sort(temp.begin(), temp.end());   //sorting the string to compare sorted string with original string
+    int fact[n] = {0};
+    factorial(fact, n);
+    
+    int res=0;
+    int check[n] = {0};      // check array to check if current character is used previously or not
+    int idx=0;
+    for(int i=0; i<n; i++)
+    {
+        if(check[i]==-1)     // if ith character is used previously i.e., -1 then continue;
+         continue;
+         
+        if(temp[i]!=str[idx])
+        {
+            res += fact[n-idx-1];         // if(characters are not matching then res will store factorial starting with current character)
+        }
+        else
+        {
+            check[i]=-1;               // if current character matches with sorted character then put check[i]=-1;
+            idx++;                 //increase idx by 1 because of 
+            i=-1;                     // do i=-1 so that next time for loop changes the value of i to be 0
+        }
+    }
+    return res+1;                      // res will store rank of all string before our desired string so our original ans will be +1
+}
+
+int main() {
+    
+    string str = "cba";
+    int n = str.length();
+    
+    cout<<find_rank(str, n);
+    return 0;
+}

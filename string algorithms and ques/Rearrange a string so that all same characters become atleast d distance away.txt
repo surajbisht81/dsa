@@ -1,0 +1,58 @@
+Given a string and a positive integer d, rearrange characters of the given string such that the same characters become at-least d distance away from each other.
+#include <bits/stdc++.h>
+using namespace std;
+#define MAX_CHAR 256
+
+int nextchar(int dist[], int freq[])
+{
+   int max = INT_MIN;
+   for(int i=0; i<MAX_CHAR; i++)
+   {
+       // select the max freq character (greedy)
+       if(freq[i]>0 and dist[i]<=0 and (max==INT_MIN or freq[i]> freq[max]))
+        max = i;
+   }
+   return max;
+}
+
+int rearrange(char str[], int n, char out[], int d)
+{
+    int freq[MAX_CHAR] = {0};
+    
+    for(int i=0; i<n; i++)
+     freq[str[i]]++;
+     
+    int dist[MAX_CHAR] = {0};
+    
+    for(int i=0; i<n; i++)
+    {
+        int j = nextchar(dist, freq);
+        
+        if(j==INT_MIN)   // j is the character
+         return 0;
+         
+        out[i] = j;
+        
+        freq[j]--;    // decreasing the freq of character
+        dist[j] =d;   // assigning the distance of character as given d
+        
+        for(int k=0; k<MAX_CHAR; k++)
+         dist[k]--;                        // decreasing distance of every character by 1
+    }
+    out[n]='\0';
+    return 1;
+}
+
+int main() {
+    
+    char str[] = "aaaabbbcc";
+    int n = strlen(str);
+    char out[n];
+    
+    if(rearrange(str, n, out, 2))
+     cout<<out<<endl;
+    else
+     cout<<"not possible."<<endl;
+     
+    return 0;
+}

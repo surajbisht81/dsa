@@ -1,0 +1,56 @@
+/*Given a list of words with lower cases. Implement a function to find all Words that have the same unique character set .*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string getkey(string str)
+{
+    int len = str.length();
+    
+    bool visited[26] = {false};
+    
+    for(int i=0; i<len; i++)
+    {
+        visited[str[i]-'a'] = true;    
+    }
+    
+    string key = "";
+    
+    for(int i=0; i<26; i++)
+    {
+        if(visited[i]==true)
+        {
+             char ch = i+'a';
+             key += ch;        
+        }
+    }
+    return key;
+}
+void wordsWithSameCharSet(string words[], int n)
+{
+    unordered_map<string, vector<int>> mp;
+    for(int i=0; i<n; i++)
+     {
+         string key = getkey(words[i]);
+         mp[key].push_back(i);     
+     }
+     
+     for(auto it = mp.begin(); it!=mp.end(); it++)
+     {
+         for(auto v = (*it).second.begin(); v!=(*it).second.end(); v++)
+         {
+             cout<<words[*v]<<" ";
+         }
+         cout<<endl;
+     }
+}
+int main() {
+    
+    string words[] = { "may", "student", "students", "dog", 
+                 "studentssess", "god", "cat", "act", "tab", 
+                 "bat", "flow", "wolf", "lambs", "amy", "yam", 
+                 "balms", "looped", "poodle"}; 
+    int n = sizeof(words)/sizeof(words[0]); 
+    wordsWithSameCharSet(words, n); 
+    return 0; 
+}

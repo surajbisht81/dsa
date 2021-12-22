@@ -1,0 +1,26 @@
+Calculate XOR from 1 to n.
+Last Updated: 03-10-2018
+Given a number n, the task is to find the XOR from 1 to n.
+
+Examples :
+
+Input : n = 6
+Output : 7
+// 1 ^ 2 ^ 3 ^ 4 ^ 5 ^ 6  = 7
+
+Input : n = 7
+Output : 0
+// 1 ^ 2 ^ 3 ^ 4 ^ 5 ^ 6 ^ 7 = 0
+Recommended: Please try your approach on {IDE} first, before moving on to the solution.
+Method 1 (Naive Approach):
+1- Initialize result as 0.
+1- Traverse all numbers from 1 to n.
+2- Do XOR of numbers one by one with result.
+3- At the end, return result.
+
+Method 2 (Efficient method) :
+1- Find the remainder of n by moduling it with 4.
+2- If rem = 0, then xor will be same as n.
+3- If rem = 1, then xor will be 1.
+4- If rem = 2, then xor will be n+1.
+5- If rem = 3 ,then xor will be 0.

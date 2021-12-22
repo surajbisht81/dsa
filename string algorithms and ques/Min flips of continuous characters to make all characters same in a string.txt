@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+
+int min_flips(string str, int n)
+{
+    int zero_cnt=0, one_cnt=0;
+    
+    for(int i=0; i<n-1; i++)
+    {
+        if(str[i]=='0' and str[i]==str[i+1])
+          {
+              if(i+1==n-1)
+                zero_cnt++;
+              else
+               continue;
+          }
+        else if(str[i]=='0' and str[i]!=str[i+1])
+          zero_cnt++;
+          
+        if(str[i]=='1' and str[i]==str[i+1])
+         {
+             if(i+1==n-1)
+              one_cnt++;
+             else
+              continue;
+         }
+        else if(str[i]=='1' and str[i]!=str[i+1])
+          one_cnt++;
+    }
+    if(str[n-1]=='0' and str[n-2]=='1')
+       zero_cnt++;
+    if(str[n-1]=='1' and str[n-2]=='0')
+      one_cnt++;
+      
+   cout<<one_cnt<<" "<<zero_cnt<<endl;
+    return min(one_cnt, zero_cnt);
+}
+
+int main() {
+    
+    string str = " 00011110001110";
+    
+    cout<<min_flips(str, str.length());
+    return 0;
+}
+
+//second method
+
+// CPP program to find min flips in binary 
+// string to make all characters equal 
+#include <bits/stdc++.h> 
+using namespace std; 
+
+// To find min number of flips in binary string 
+int findFlips(char str[], int n) 
+{ 
+	char last = ' '; int res = 0; 
+
+	for (int i = 0; i < n; i++) { 
+
+		// If last character is not equal 
+		// to str[i] increase res 
+		if (last != str[i]) 
+			res++; 
+		last = str[i]; 
+	} 
+
+	// To return min flips 
+	return res / 2; 
+} 
+
+// Driver program to check findFlips() 
+int main() 
+{ 
+	char str[] = "00011110001110"; 
+	int n = strlen(str); 
+
+	cout << findFlips(str, n); 
+
+	return 0; 
+} 
